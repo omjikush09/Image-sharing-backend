@@ -44,6 +44,7 @@ app.get("/",(req,res)=>{
 })
 
 //Connect Database
+const DATABASE=process.env.DATABASE || "mongodb://localhost:27017/user"
 Mongoose.connect(process.env.DATABASE, 
     {useNewUrlParser: true,
     useUnifiedTopology: true
@@ -55,8 +56,8 @@ Mongoose.connect(process.env.DATABASE,
     });
 
 
-
+const PORT =process.env.PORT || 8000
 //Server is running
-app.listen(8000,()=>{
+app.listen(PORT,()=>{
     console.log("Server is running")
 })
