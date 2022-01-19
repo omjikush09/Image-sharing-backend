@@ -45,7 +45,7 @@ app.get("/",(req,res)=>{
 
 //Connect Database
 const DATABASE=process.env.DATABASE || "mongodb://localhost:27017/user"
-Mongoose.connect(process.env.DATABASE, 
+Mongoose.connect(DATABASE, 
     {useNewUrlParser: true,
     useUnifiedTopology: true
     // useCreateIndex:true
