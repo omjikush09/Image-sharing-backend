@@ -1,6 +1,6 @@
 import express from "express"
 import { isAuthenticated, isSignIn } from "../controllers/auth.js";
-import { addFollowing, checkUserName, getPost, getUser, getUserById, getUserByusername } from "../controllers/user.js";
+import { addFollowing, checkUserName, getPost, getUser, getUserById, getUserByusername, getUsernameList } from "../controllers/user.js";
 const router = express.Router();
 
 
@@ -17,7 +17,8 @@ router.get("/checkusername",checkUserName)
 router.get("/user/username/:username",getUser)
 router.get("/getpost/:userId",isSignIn,isAuthenticated,getPost)
 router.put("/addfollowing/:userId",isSignIn,isAuthenticated,addFollowing)
-
+router.get("/getUsernameList/:userId",isSignIn,isAuthenticated,getUsernameList)
+router.get("/getUsernameList",getUsernameList)
 
 
 export default router;

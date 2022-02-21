@@ -4,14 +4,9 @@ import crypto from "crypto"
 import { v4 } from 'uuid';
 
 var userSchema = new mongoose.Schema({
-    firstname:{
+    fullname:{
         type:String,
         required:true,
-        trim:true,
-        maxlength:32
-    },
-    lastname:{
-        type:String,
         trim:true,
         maxlength:32
     },

@@ -59,5 +59,5 @@ Mongoose.connect(DATABASE,
 const PORT =process.env.PORT || 8000
 //Server is running
 app.listen(PORT,'localhost',()=>{
-    console.log("Server is running")
+    console.log(`Server is running at port ${PORT}`)
 })

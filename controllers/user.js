@@ -79,25 +79,7 @@ export const getPost =  async (req, res) => {
          
        
     }
-    //   await req.profile.following.map(async (userid) =>
-    //   await User.findById(userid, (error, user) => {
-    //     if (error || user == null) {
-    //       return res.status(400).json({
-    //         error: "Not able to find following in DB",
-    //       });
-    //     }
-    //     let post = {
-    //       user,
-    //       posturl: user.images.url,
-    //     };
-    //     // console.log(JSON.stringify(post, null, 2));
-    //     posts.push(post);
-    //     console.log(" inside map")
-    //   })
-    //     .populate("followers")
-     
-    // );
-    // console.log(posts)
+   
  
     return res.send(posts);
   } else {
@@ -149,3 +131,25 @@ export const addFollowing = (req, res) => {
     }
   );
 };
+
+export const getUsernameList=(req,res)=>{
+  const regex= new RegExp(`^${req.body.username}`)
+  User.find({"username":{$regex:regex}},(error,users) =>{
+    if(error){
+      return res.status(400).json({error:error})
+    }
+    users.map(user=>{
+      user.email=undefined
+      user.salt=undefined
+      user.encryPassword=undefined
+      user.gender=undefined
+      user.images=undefined
+      user.followers=undefined
+      user.following=undefined
+      user.createdAt=undefined
+      user.updatedAt=undefined
+    })
+    return res.status(200).send(users)
+  }).lean()
+}
+

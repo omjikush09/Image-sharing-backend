@@ -4,9 +4,9 @@ import User from "../models/user.js"
 import jwt from "jsonwebtoken"
 import expressjwt from "express-jwt"
 import user from "../models/user.js"
-export const signup =(req,res)=>{
+export const signup =(req,res)=>{ 
     User.where({email:req.body.email}).findOne((error,userfound)=>{
-     
+
         if(userfound){
             return res.status(400).json({
                 error:"User already exist"
