@@ -132,8 +132,13 @@ export const addFollowing = (req, res) => {
   );
 };
 
+
 export const getUsernameList=(req,res)=>{
+  // console.log(`Username is ${req.body.username}`)
   const regex= new RegExp(`^${req.body.username}`)
+  if(!req.body.username){
+    return res.status(400).json({error:"Username not provided in body"})
+  }
   User.find({"username":{$regex:regex}},(error,users) =>{
     if(error){
       return res.status(400).json({error:error})

@@ -17,7 +17,7 @@ router.get("/checkusername",checkUserName)
 router.get("/user/username/:username",getUser)
 router.get("/getpost/:userId",isSignIn,isAuthenticated,getPost)
 router.put("/addfollowing/:userId",isSignIn,isAuthenticated,addFollowing)
-router.get("/getUsernameList/:userId",isSignIn,isAuthenticated,getUsernameList)
+router.post("/getUsernameList/:userId",isSignIn,isAuthenticated,getUsernameList)
 router.get("/getUsernameList",getUsernameList)
 
 
