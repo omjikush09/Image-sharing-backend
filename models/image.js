@@ -20,7 +20,7 @@ const imageSchema = mongoose.Schema({
     },
     comments:{
         type:[mongoose.Types.ObjectId],
-        ref:"comment"
+        ref:"Comment"
     }
 },{timestamps:true})
 

@@ -16,7 +16,7 @@ const app = express();
 import authroute from "./routes/auth.js"
 import userRoute from "./routes/user.js"
 import imageRoute from "./routes/image.js"
-
+import commentRoute from "./routes/comment.js"
 //Middleware
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -37,6 +37,7 @@ app.use((err,req,res,next)=>{
 app.use("/api",authroute)
 app.use("/api",userRoute)
 app.use("/api",imageRoute)
+app.use("/api",commentRoute)
 
 
 app.get("/",(req,res)=>{

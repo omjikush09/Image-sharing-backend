@@ -28,7 +28,7 @@ export const uploadImage=(req,res)=>{
     })
 }
 
-export const getImageById=(req,res,next,id)=>{
+export const getImageById=(req,res,id,next)=>{
     Images.findById(id,(err,image)=>{
         if(err){
             return res.status(400).json({
@@ -44,6 +44,22 @@ export const getImage=(req,res)=>{
     req.image.createdAt=undefined
     req.image.updatedAt=undefined
     res.json(req.image)
+}
+export const likeImage=(req,res)=>{
+    Images.findByIdAndUpdate(req.body.postId,{$push:{likedUsers:req.profile._id}},(error,image)=>{
+        if(error){
+            return res.status(400).json({error:error})
+        }
+        return res.json({success:"Added liked successfully"})
+    })
+}
+export const unLikeImage=(req,res)=>{
+    Images.findByIdAndUpdate(req.body.postId,{$pull:{likedUsers:req.profile._id}},(error,image)=>{
+        if(error){
+            return res.status(400).json({error:error})
+        }
+        return res.json({success:"Removed  liked successfully"})
+    })
 }
 
 
