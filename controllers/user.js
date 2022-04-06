@@ -63,6 +63,7 @@ export const getPost =  async (req, res) => {
   if (req.profile.following.length !== 0) {
     let posts = [];
  
+    console.log(typeof req.profile.following)
     for (const following  of req.profile.following) {
         const  user= await User.findById(following).populate("images").exec();
         if ( user == null) {

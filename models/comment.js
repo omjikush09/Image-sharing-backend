@@ -7,7 +7,7 @@ const commentSchema=mongoose.Schema({
         trim:true
     },
     userId:{
-        type:[mongoose.Types.ObjectId],
+        type:mongoose.Types.ObjectId,
         required:true,
         ref:"User"
     },
@@ -17,7 +17,7 @@ const commentSchema=mongoose.Schema({
         trim:true
     },
     postId:{
-        type:[mongoose.Types.ObjectId],
+        type:mongoose.Types.ObjectId,
         required:true,
         ref:"Image"
     }
