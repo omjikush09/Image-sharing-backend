@@ -5,7 +5,9 @@ export const uploadImage=(req,res)=>{
     req.body.uploadedBy=req.profile._id
     const image =new Images(req.body)
     image.save((error,image)=>{
+        console.log(`error ${ error} \n image ${image}`)
         if(error){
+            console.log(error)
             return res.status(400).json({
                 error:"Not able to save image in DB"
             })
