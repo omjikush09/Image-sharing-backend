@@ -17,13 +17,15 @@ var userSchema = new mongoose.Schema({
     username:{
         type:String,
         trim:true,
-        maxlength:20
+        maxlength:20,
+        unique:true
     },
     email:{
         type:String,
         required:true,
         trim:true,
-        lowercase:true
+        lowercase:true,
+        unique:true
     },
     salt:{
         type:String,

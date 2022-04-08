@@ -13,7 +13,7 @@ router.param("username",getUserByusername)
 
 router.get("/user/:userId",isSignIn,isAuthenticated,getUser)
 // router.get("/",getUserById,isSignIn,isAuthenticated,getUser)
-router.get("/checkusername",checkUserName)
+router.post("/checkusername",checkUserName)
 router.get("/user/username/:username",getUser)
 router.get("/getpost/:userId",isSignIn,isAuthenticated,getPost)
 router.put("/addfollowing/:userId",isSignIn,isAuthenticated,addFollowing)

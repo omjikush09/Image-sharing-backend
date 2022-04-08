@@ -30,8 +30,10 @@ export const getUserByusername = (req, res, next, username) => {
 };
 
 export const checkUserName = (req, res) => {
+
   User.findOne(req.body, (error, user) => {
-    if (error) {
+  
+    if (user ===null) {
       return res.json({
         success: "User Name is available",
       });
