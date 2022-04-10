@@ -73,8 +73,8 @@ export const signout =(req,res)=>{
 export const isSignIn = async (req,res,next)=>{
     const token= req.headers.authorization.split(" ")[1];
     // console.log(token)
-
-    if(token.length>500){
+ 
+    if(user.email){ //email is in the google token
         const ticket=await client.verifyIdToken({idToken:token,audience:process.env.CLIENT_ID})
         req.auth=ticket.getPayload();
         // console.log("google")
@@ -86,7 +86,7 @@ export const isSignIn = async (req,res,next)=>{
             secret:process.env.SECRET,
             algorithms: ['HS256'],
              userProperty: 'auth' 
-                })
+            })
     }
 }
 
@@ -97,9 +97,7 @@ export const isAuthenticated =(req,res,next)=>{
     try {
        googleChecker=req.profile && req.auth && (req.profile.id==req.auth.sub)
 
-    //    console.log(req.profile.id +"  profile")
-    //    console.log(req.auth.sub +"  auth")
-    //    console.log(googleChecker)
+
     } catch (error) {        
     }
     try {
@@ -108,7 +106,7 @@ export const isAuthenticated =(req,res,next)=>{
          if(!req.auth._id){
              checker=false
          }
-        //  console.log(checker)
+     
     } catch (error) {
         
     }
