@@ -8,7 +8,7 @@ import { body } from "express-validator";
 
 
 
-router.post("/signup",
+router.post(["/signup","/googlelogin"],
     body("email").isEmail().normalizeEmail().withMessage("Email is not supported"),
     body('password').isLength({min:8}).withMessage("Passwrod should be minimum lenght of 8")
     ,signup)

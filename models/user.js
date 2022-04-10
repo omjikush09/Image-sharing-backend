@@ -14,6 +14,11 @@ var userSchema = new mongoose.Schema({
         type:String,
         default:"https://woodfibreinsulation.co.uk/wp-content/uploads/2017/04/blank-profile-picture-973460-1-1.png"
     },
+   id:{
+       type:String,
+       unique:true,
+       trim:true,
+   },
     username:{
         type:String,
         trim:true,
