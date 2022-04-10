@@ -18,6 +18,7 @@ export const signup =(req,res)=>{
             })
         }
         if(userfound && isgooglelogin){
+            console.log(userfound)
             return res.status(200).json(userfound)
         }
         
@@ -28,11 +29,8 @@ export const signup =(req,res)=>{
                      error:error
             })
             }
-            res.json({
-                name:user.firstname,
-            // email:user.email
-             id:user._id
-        })
+            user.encryPassword=undefined
+            res.json( user)
     })
     })
 }
@@ -73,13 +71,17 @@ export const signout =(req,res)=>{
 
 //Protected Routes 
 export const isSignIn = async (req,res,next)=>{
-    const token= req.headers.Authorization.split(" ")[1];
+    const token= req.headers.authorization.split(" ")[1];
+    // console.log(token)
 
-    if(token>500){
+    if(token.length>500){
         const ticket=await client.verifyIdToken({idToken:token,audience:process.env.CLIENT_ID})
         req.auth=ticket.getPayload();
+        // console.log("google")
+        // console.log(req.auth)
         next()
     }else{
+        console.log("express")
         expressjwt({
             secret:process.env.SECRET,
             algorithms: ['HS256'],
@@ -90,12 +92,27 @@ export const isSignIn = async (req,res,next)=>{
 
 //Middleware
 export const isAuthenticated =(req,res,next)=>{
+    let googleChecker=false
+    let checker=false
     try {
-        let googleChecker=req.profile && req.auth && (req.profile.id==req.auth.googleId)
+       googleChecker=req.profile && req.auth && (req.profile.id==req.auth.sub)
+
+    //    console.log(req.profile.id +"  profile")
+    //    console.log(req.auth.sub +"  auth")
+    //    console.log(googleChecker)
     } catch (error) {        
-        let checker = req.profile && req.auth &&( req.profile._id == req.auth._id || req.body._id==req.auth._id);
     }
-    if(!checker || !googleChecker){
+    try {
+        
+         checker = req.profile && req.auth && req.auth._id &&( req.profile._id == req.auth._id || req.body._id==req.auth._id);
+         if(!req.auth._id){
+             checker=false
+         }
+        //  console.log(checker)
+    } catch (error) {
+        
+    }
+    if(!checker && !googleChecker){
         return res.status(403).json({
             error:"ACCESS DENIED"
         })
