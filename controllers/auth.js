@@ -106,9 +106,7 @@ export const isAuthenticated =(req,res,next)=>{
     try {
        googleChecker=req.profile && req.auth && (req.profile.id==req.auth.sub)
 
-    //    console.log(req.profile.id +"  profile")
-    //    console.log(req.auth.sub +"  auth")
-    //    console.log(googleChecker)
+
     } catch (error) {        
     }
     try {
@@ -117,7 +115,7 @@ export const isAuthenticated =(req,res,next)=>{
          if(!req.auth._id){
              checker=false
          }
-        //  console.log(checker)
+     
     } catch (error) {
         
     }
