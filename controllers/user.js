@@ -65,7 +65,8 @@ export const getPost =  async (req, res) => {
   if (req.profile.following.length !== 0) {
     let posts = [];
  
-    console.log(typeof req.profile.following)
+    // console.log(typeof req.profile.following)
+
     for (const following  of req.profile.following) {
         const  user= await User.findById(following).populate("images").exec();
         if ( user == null) {
@@ -142,22 +143,38 @@ export const getUsernameList=(req,res)=>{
   if(!req.body.username){
     return res.status(400).json({error:"Username not provided in body"})
   }
-  User.find({"username":{$regex:regex}},(error,users) =>{
+  User.find({"username":{$regex:regex}},{usernmae:1,profileImage:1,username:1,fullname:1},(error,users) =>{
     if(error){
       return res.status(400).json({error:error})
     }
-    users.map(user=>{
-      user.email=undefined
-      user.salt=undefined
-      user.encryPassword=undefined
-      user.gender=undefined
-      user.images=undefined
-      user.followers=undefined
-      user.following=undefined
-      user.createdAt=undefined
-      user.updatedAt=undefined
-    })
+   
+    
     return res.status(200).send(users)
   }).lean()
 }
 
+
+export const addProfileImage=(req,res)=>{
+    User.findByIdAndUpdate(req.profile._id,{profileImage:req.body.profileImage},(error,user)=>{
+      if(error){
+        return res.status(400).json({error:"Something wrong with Database"})
+      }
+      return res.status(200).json(res)
+    })
+    
+}
+
+export const addUsername=(req,res)=>{
+  console.log("addusername")
+  // console.log(req.body)
+  // console.log(req.profile._id)
+  const username=req.body.username
+  return res.status({succes:'hsdf'})
+  User.findByIdAndUpdate(req.profile._id,{username},(error,user)=>{
+    if(error){
+      return res.status(400).json({error:"Something wrong with DAtabase"})
+    }
+    return res.status(200).json(res)
+  })
+  
+}

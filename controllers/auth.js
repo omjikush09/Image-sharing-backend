@@ -74,16 +74,21 @@ export const isSignIn = async (req,res,next)=>{
     const token= req.headers.authorization.split(" ")[1];
     // console.log(token)
     const user=jwt.decode(token)
-    console.log(JSON.stringify(user,null,2))
-    console.log(user +" hahahaf")
-    if(user.email){  // 
-        const ticket=await client.verifyIdToken({idToken:token,audience:process.env.CLIENT_ID})
-        req.auth=ticket.getPayload();
+    // console.log(JSON.stringify(user,null,2))
+    // console.log(user +" hahahaf")
+    if(user.email){  //
+        try {
+            
+            const ticket=await client.verifyIdToken({idToken:token,audience:process.env.CLIENT_ID})
+            req.auth=ticket.getPayload();
+        } catch (error) {
+            return res.status(401).json({error:"You are not authorized Login Again"})
+        } 
         // console.log("google")
-        console.log(req.auth)
+        // console.log(req.auth)
         next()
     }else if(user._id){
-        console.log("express")
+        // console.log("expressJWT")
         expressjwt({
             secret:process.env.SECRET,
             algorithms: ['HS256'],
