@@ -2,7 +2,7 @@
 // const User =require("../models/user")
 import User from "../models/user.js"
 import jwt from "jsonwebtoken"
-import expressjwt from "express-jwt"
+
 import user from "../models/user.js"
 import {OAuth2Client} from "google-auth-library"
 
