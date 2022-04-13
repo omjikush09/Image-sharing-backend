@@ -165,16 +165,18 @@ export const addProfileImage=(req,res)=>{
 }
 
 export const addUsername=(req,res)=>{
-  console.log("addusername")
+
   // console.log(req.body)
-  // console.log(req.profile._id)
-  const username=req.body.username
-  return res.status({succes:'hsdf'})
-  User.findByIdAndUpdate(req.profile._id,{username},(error,user)=>{
+  // // console.log(req.profile._id)
+  // const username=JSON.parse(req.body)
+  // console.log(username)
+
+
+  User.findByIdAndUpdate(req.profile._id,req.body,{new:true},(error,user)=>{
     if(error){
       return res.status(400).json({error:"Something wrong with DAtabase"})
     }
-    return res.status(200).json(res)
+    return res.status(200).json(user)
   })
   
 }

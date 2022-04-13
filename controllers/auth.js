@@ -73,7 +73,9 @@ export const signout =(req,res)=>{
 export const isSignIn = async (req,res,next)=>{
     const token= req.headers.authorization.split(" ")[1];
     // console.log(token)
+    // console.log("issignin")
     const user=jwt.decode(token)
+    // console.log(user)
     // console.log(JSON.stringify(user,null,2))
     // console.log(user +" hahahaf")
     if(user.email){  //
@@ -89,11 +91,31 @@ export const isSignIn = async (req,res,next)=>{
         next()
     }else if(user._id){
         // console.log("expressJWT")
-        expressjwt({
-            secret:process.env.SECRET,
-            algorithms: ['HS256'],
-             userProperty: 'auth' 
-            })
+        // console.log("expressjwt")
+        
+        const ticket=jwt.verify(token,process.env.SECRET,(err,decoded)=>{
+            if(err){
+                console.log(
+                    err
+                )
+                return res.status(401).json({error:"You are not authorized"})
+
+            }else{
+
+                req.auth=decoded
+                next()
+            }
+        })
+        // try {
+        //     console.log(ticket)
+        //     req.auth=user;
+        // } catch (error) {
+        // }
+        // // expressjwt({
+        // //     secret:process.env.SECRET,
+        // //     algorithms: ['HS256'],
+        // //      requestProperty: 'auth' 
+        // //     })
     }else{
         return res.status(401).json({error:"You are not authorized"})
     }
@@ -103,6 +125,8 @@ export const isSignIn = async (req,res,next)=>{
 export const isAuthenticated =(req,res,next)=>{
     let googleChecker=false
     let checker=false
+
+    // console.log(req.auth)
     try {
        googleChecker=req.profile && req.auth && (req.profile.id==req.auth.sub)
 

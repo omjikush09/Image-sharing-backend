@@ -19,7 +19,7 @@ router.get("/getpost/:userId",isSignIn,isAuthenticated,getPost)
 router.put("/addfollowing/:userId",isSignIn,isAuthenticated,addFollowing)
 router.post("/getUsernameList/:userId",isSignIn,isAuthenticated,getUsernameList)
 // router.post("/addprofileimage/:userId",isSignIn,isAuthenticated,addProfileImage)
-router.post("/addusername/:userId",isSignIn,isAuthenticated,addUsername)
+router.put("/addusername/:userId",isSignIn,isAuthenticated,addUsername)
 router.get("/getUsernameList",getUsernameList)
 
 
