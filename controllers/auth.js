@@ -18,7 +18,7 @@ export const signup =(req,res)=>{
             })
         }
         if(userfound && isgooglelogin){
-            console.log(userfound)
+            // console.log(userfound)
             return res.status(200).json(userfound)
         }
         

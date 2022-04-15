@@ -88,7 +88,7 @@ export const getPost =  async (req, res) => {
     return res.send(posts);
   } else {
     res.json({
-      message: "Follow People  to see the posts",
+      error: "Follow People  to see the posts",
     });
   }
 };
@@ -110,7 +110,7 @@ export const addFollowing = (req, res) => {
           error: "Not able to add in DB",
         });
       }
-      console.log(user);
+      // console.log(user);
       if(req.body.id){
         User.findByIdAndUpdate(
           req.body.id,
